@@ -114,18 +114,80 @@ function countVowels (string){
 //Hint: Javascript has a special value called Infinity, which is higher than any other number. 
 //See if you can initialize your reduce accumulator with Infinity and -Infinity :)
 function highLow(array){
-    return array.reduce(function(a,b){
-        if (a.highest < b) {
+    return array.reduce(function(a,b){ // reduce will compare 2 at a time. 
+        if (a.highest < b) {  // first 'reduce' will compare the first item in the array (99) with the highest value that we set ( -Infinity). So we get a.highest = 99. This 99 will be used to compare with the next number in the array to find the highest number. 
             a.highest = b;
         } 
         if (a.lowest > b) {
             a.lowest = b;
         }
-        return a;
-        },{highest: -Infinity, lowest: Infinity}); // this is the starting value 
+        return a; // need to have 'a' here so that 'reduce' knows what will be the next value it will use to compare with the next number in the array
+        },{highest: -Infinity, lowest: Infinity // this is the object part of the code. (Object is always inside a curly bracket.) this is the starting value that we set
+        });
 }
-console.log(highLow([-99,89,65,-927,9999,879,-15]));
+//console.log(highLow([-99,89,65,-927,9999,879,-15]));
 
 
 
+/*Exercise 7
+Expanding on exercise 6, write a function called highLowTwo that takes an array of numbers, and 
+returns the higest, second highest, lowest, and second lowest numbers.
+For example, starting with [1, -10, 20, 40, 5], your function should return:
+{
+  "highest": 40,
+  "secondHighest": 20,
+  "lowest": -10,
+  "secondLowest": 5
+} */
+function highLowTwo (array) {
+    return array.reduce(function(a,b) {
+            if (b > a.highest) {
+                a.secondHighest = a.highest;
+                a.highest = b;
+            }
+            
+            if (b > a.secondHighest && b < a.highest){
+                a.secondHighest = b;
+            }
+            
+            if (b < a.lowest) {
+                a.secondLowest = a.lowest;
+                a.lowest = b;
+            }
+            
+            if (b < a.secondLowest && b > a.lowest){
+                a.secondLowest = b;
+            }
+            
+            return a;
+    },{
+        highest: - Infinity, 
+        secondHighest: -Infinity,
+        lowest: Infinity,
+        secondLowest: Infinity
+    });
+}
+console.log(highLowTwo([-99,99,65,-999,9999,999,-15]));
 
+
+
+/*Exercise 8
+Write a function called countChars that takes a string, and returns an object where the keys are
+letters, and the value is the number of times that letter appears.
+For example, with input "hello world", the output should be:
+{
+  "h": 1,
+  "e": 1,
+  "l": 3,
+  "o": 2,
+  "w": 1,
+  "r": 1,
+  "d": 1
+}
+NOTE: Unlike arrays, objects don’t have any ordering on them. When you print your object on the 
+console, your keys may be displayed in a different order, and it does not matter.
+*/
+function countChars (string) {
+    return 
+}
+    
