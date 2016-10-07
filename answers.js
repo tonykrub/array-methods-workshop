@@ -1,193 +1,220 @@
-//Exercise 1: Write a function called printPositives that takes an array and uses the forEach 
-//method to print only the positive numbers
-var array = [5, 9, 99, -8, 90, -19, -89, 98];
-var printPositives = function (array){
-array.forEach(function(number){
-        if (number > 0){
-            console.log(number);
+// 1) Write a function called printPositives that takes an array 
+// and uses the forEach method to print only the positive numbers.
+function printPositives(arr){
+    return arr.forEach(function positiveNums(num) {
+        if (num > 0) {
+            console.log(num);
         }
-});
-};
-//printPositives(array);
+    })
+}
+//printPositives([1, -8, 999, 45, -35, 9]);
 
 
-//Exercise 2
-//Similar to the previous exercise, write a function called getPositives that takes an array and 
-//uses the filter method to return a new array with only the positive numbers.
-var array = [1, 5, 9, 10, 15, 99, -8, 19, -59];
-function getPositives (array) {
-    var a =  array.filter(function(number){ 
-        if (number > 0){
-            return number;  // when we use "filter", we have to "return" later (but for 'forEach', we don't need to return)
+// 2) Similar to the previous exercise, write a function 
+// called getPositives that takes an array and uses the filter 
+// method to return a new array with only the positive numbers.
+function getPositives(arr) {
+    return arr.filter(function filtered(num) {
+        if (num > 0) {
+            return num;
         }
-    });
-    return a;
+    })
 }
-//console.log(getPositives(array));
+//console.log(getPositives([5, 9, 49, 39, -3, 9, -77, -2, 999]));
 
 
-
-//Exercise 2B
-//Re-do exercise 1 by first filtering the input array, and then printing the numbers from the 
-//filtered array. Your code will look something like: `return arr.filter(…).forEach(…)
-var arr = [5, 9, 99, -8, 90, -19, -89];
-function positiveNumbers (arr){
-    arr.filter(function(number){
-        if (number > 0){
-            return true;
+// 2B) Re-do exercise 1 by first filtering the input array, and 
+// then printing the numbers from the filtered array. Your code
+// will look something like: `return arr.filter(…).forEach(…)
+function positiveNum(arr) {
+    return arr.filter(function filteredNum(num) {
+        if (num > 0) {
+            return num;
         }
-    }).forEach(function(item){
-        console.log(item);
-    });
+    })
+    .forEach(function printNum(num) {
+        console.log(num);
+    })
 }
-//positiveNumbers(arr);
+//positiveNum([1, -8, 999, 45, -35, 9]);
 
 
-
-//Exercise 3
-//Write a function called filterArray that takes an array AND a function as arguments. Your 
-//filter function should return a new array that contains only the elements where the passed 
-//function returns a truthy value.
-//NOTE: You are allowed to use Array.prototype.filter to answer this question.
-//NOTE 2: This is a bit of a trick question, the answer is a one-liner :)
-var newArray = [0, 5, '', 9, undefined, "Tony", null, "Amazing", false];
-function filterArray (newArray, func){
-    return newArray.filter(function(element){
-            if (element){
-                return element; //JavaScript will not return anyway if it is not truthy.. so if we have an element, it will be returned if it is truthy. the ones that are not truthy won't be returned
-            }
-    });
+// 3) Write a function called filterArray that takes an array 
+// AND a function as arguments. Your filter function should 
+// return a new array that contains only the elements where the 
+// passed function returns a truthy value.
+// NOTE: You are allowed to use Array.prototype.filter to answer 
+// this question.
+// NOTE 2: This is a bit of a trick question, the answer is a 
+// one-liner :)
+function filterArray(arr, func) {
+    return arr.filter(function truthyVal(element) {
+        if (element) {
+            return element;
+        }
+    })
 }
-//console.log(filterArray(newArray));
+//filterArray([5, 9, "", undefined, 99, null, 999, 0, 99999]);
 
 
-
-//Exercise 4
-//Write a function called longestWord that takes a string as argument, and returns the longest 
-//word in the string. You should use Array.prototype.reduce to do your work.
-//Hint: You can use String.prototype.split to split the string into an array of words.
-function longestWord (string){
-    var split = string.split(' ');
-          console.log(split);  // this is not really necessary. can also omit this line. 
-     return split.reduce(function(a,b){
-         if (a.length > b.length){
+// 4) Write a function called longestWord that takes a string as
+// argument, and returns the longest word in the string. You 
+// should use Array.prototype.reduce to do your work.
+// Hint: You can use String.prototype.split to split the string 
+// into an array of words.
+function longestWord(str) {
+    var spl = str.split(" ");
+    return spl.reduce(function(a, b) {
+        if (a.length > b.length) {
             return a;
-         } else {       // still need to have 'else' here to have something to compare. what if a.length is not > b.length? what to do? that is why we have to add 'else' here
-            return b;   
-         }
-     });
-}
-//console.log(longestWord("I love you"));
-
-
-
-//Exercise 5
-//Write a function called countVowels that takes a string and returns the number of vowels in 
-//the string. You should use Array.prototype.reduce to do your work.
-//Hint: You can use String.prototype.split again. There is a way to use it to split a string by 
-//character. Try to Google it :)
-//Hint 2: You can create an array of vowels and use Array.prototype.indexOf to check if the 
-//current letter is a vowel.
-function countVowels (string){
-    var stringSplit = string.toLowerCase().split(""); // have to change every character to lowercase because in the if statement below, we set up all vowels in lowercase
-    return stringSplit.reduce(function (a,b){ // 'a' here is like 'counter'. a starts at zero (as we can see that we set 'counter' = 0 on line 102). 'b' is each character in the string.
-        if (b === "a" || 
-            b === "e" ||
-            b === "i" ||
-            b === "o" ||
-            b === "u") {
-        a = a + 1;    // this means if we find one vowel, we add up by 1 when we find the next one in the string (starting at zero as we set here). 
-        } 
-        return a;
-    }, 0);  // 0 here is the value of 'a' at the beginning. and this is where we put 0, not at any other locations, as per the information on how to use 'reduce'. read more on MDN
-}
-//console.log(countVowels("Ocean"));
-
-
-
-//Exercise 6
-//Write a function called highLow that takes an array of numbers, and returns an object with a 
-//property highest containing the highest number, and a property lowest containing the lowest 
-//number, using Array.prototype.reduce.
-//For example, starting with [1, -10, 20, 40, 5], your function should return {highest: 40, 
-//lowest: -10}.
-//Hint: Javascript has a special value called Infinity, which is higher than any other number. 
-//See if you can initialize your reduce accumulator with Infinity and -Infinity :)
-function highLow(array){
-    return array.reduce(function(a,b){ // reduce will compare 2 at a time. 
-        if (a.highest < b) {  // first 'reduce' will compare the first item in the array (99) with the highest value that we set ( -Infinity). So we get a.highest = 99. This 99 will be used to compare with the next number in the array to find the highest number. 
-            a.highest = b;
-        } 
-        if (a.lowest > b) {
-            a.lowest = b;
         }
-        return a; // need to have 'a' here so that 'reduce' knows what will be the next value it will use to compare with the next number in the array
-        },{highest: -Infinity, lowest: Infinity // this is the object part of the code. (Object is always inside a curly bracket.) this is the starting value that we set
-        });
+        else if (a.length < b.length) {
+            return b;
+        }
+        else {
+            return "Both " + a.toUpperCase() + " and " +  b.toUpperCase() + " are the longest!";
+        }
+    })  // dont need to put 'zero' here because we dont want to start at the number zero but we want to start at the first word!
 }
-//console.log(highLow([-99,89,65,-927,9999,879,-15]));
+//console.log(longestWord("Love me like you do"))
 
 
-
-/*Exercise 7
-Expanding on exercise 6, write a function called highLowTwo that takes an array of numbers, and 
-returns the higest, second highest, lowest, and second lowest numbers.
-For example, starting with [1, -10, 20, 40, 5], your function should return:
-{
-  "highest": 40,
-  "secondHighest": 20,
-  "lowest": -10,
-  "secondLowest": 5
-} */
-function highLowTwo (array) {
-    return array.reduce(function(a,b) {
-            if (b > a.highest) {
-                a.secondHighest = a.highest;
-                a.highest = b;
+// 5) Write a function called countVowels that takes a string and
+// returns the number of vowels in the string. You should use 
+// Array.prototype.reduce to do your work.
+// Hint: You can use String.prototype.split again. There is a way
+// to use it to split a string by character. Try to Google it :)
+// Hint 2: You can create an array of vowels and use 
+// Array.prototype.indexOf to check if the current letter is a vowel.
+function countVowels(str){
+    var splitedStr = str.toLowerCase().split('');
+    return splitedStr.reduce(function(accumulator, currentValue) { 
+        if (currentValue === 'a' ||
+            currentValue === 'e' ||
+            currentValue === 'i' ||
+            currentValue === 'o' ||
+            currentValue === 'u') {
+                return accumulator + 1;
             }
-            
-            if (b > a.secondHighest && b < a.highest){
-                a.secondHighest = b;
+            else {
+                return accumulator + 0;
             }
-            
-            if (b < a.lowest) {
-                a.secondLowest = a.lowest;
-                a.lowest = b;
-            }
-            
-            if (b < a.secondLowest && b > a.lowest){
-                a.secondLowest = b;
-            }
-            
-            return a;
-    },{
-        highest: - Infinity, 
-        secondHighest: -Infinity,
-        lowest: Infinity,
-        secondLowest: Infinity
-    });
+    }, 0)
+    return accumulator;
 }
-console.log(highLowTwo([-99,99,65,-999,9999,999,-15]));
+//or could do it like the below by using 'a' and 'b' instead of 
+//'accumulator' and 'currentValue' respectively.
+
+// function countVowels(str){
+//     var splitedStr = str.toLowerCase().split('');
+//     return splitedStr.reduce(function(a, b) { // 'a' here is like accumulator and 'b' is the current value(according to the document)
+//         if (b === 'a' ||
+//             b === 'e' ||
+//             b === 'i' ||
+//             b === 'o' ||
+//             b === 'u') {
+//                 return a + 1;
+//             }
+//             else {
+//                 return a + 0;
+//             }
+//     }, 0)
+//     return a;
+// }
+
+//console.log(countVowels("Fifty shades of grey"));
 
 
-
-/*Exercise 8
-Write a function called countChars that takes a string, and returns an object where the keys are
-letters, and the value is the number of times that letter appears.
-For example, with input "hello world", the output should be:
-{
-  "h": 1,
-  "e": 1,
-  "l": 3,
-  "o": 2,
-  "w": 1,
-  "r": 1,
-  "d": 1
+// 6) Write a function called highLow that takes an array of 
+// numbers, and returns an object with a property highest 
+// containing the highest number, and a property lowest 
+// containing the lowest number, using Array.prototype.reduce.
+// For example, starting with [1, -10, 20, 40, 5], your function 
+// should return {highest: 40, lowest: -10}.
+// Hint: Javascript has a special value called Infinity, which is
+// higher than any other number. See if you can initialize your 
+// reduce accumulator with Infinity and -Infinity :)
+function highLow(arr) {
+    return arr.reduce(function(counterVal,curVal) {
+        if (counterVal.highest < curVal) {
+            counterVal.highest = curVal;
+        } 
+        if (counterVal.lowest > curVal) {
+            counterVal.lowest = curVal;
+        }
+        return counterVal
+    },{ // below is where we put the variable 'counterVal' (the starting value) that we use it to compare with the values in the array. it has 2 values: highest and lowest.
+        highest: -Infinity, // here is 'counterVal' or initial value that we use to compare with current value
+        lowest: +Infinity  // here is 'counterVal' or initial value that we use to compare with current value
+    })
 }
-NOTE: Unlike arrays, objects don’t have any ordering on them. When you print your object on the 
-console, your keys may be displayed in a different order, and it does not matter.
-*/
-function countChars (string) {
-    return 
+//console.log(highLow([1, 79, 99999, -8, , 100009999, -999, -109, 89, -68]));
+
+
+// 7) Expanding on exercise 6, write a function called 
+// highLowTwo that takes an array of numbers, and returns the 
+// higest, second highest, lowest, and second lowest numbers.
+// For example, starting with [1, -10, 20, 40, 5], your function
+// should return:
+// {
+//   "highest": 40,
+//   "secondHighest": 20,
+//   "lowest": -10,
+//   "secondLowest": 5
+// }
+function highLowTwo(arr) {
+    return arr.reduce(function compareNum(counterValue, currentValue) {
+        if (counterValue.highest < currentValue) {
+            counterValue.secondHighest = counterValue.highest;
+            counterValue.highest = currentValue;
+        }
+        
+        if (currentValue > counterValue.secondHighest && currentValue < counterValue.highest) {
+            counterValue.secondHighest = currentValue;
+        }
+        
+        if (currentValue < counterValue.lowest) {
+            counterValue.secondLowest = counterValue.lowest;
+            counterValue.lowest = currentValue;
+        }
+        
+        if (currentValue < counterValue.secondLowest && currentValue > counterValue.Lowest) {
+            counterValue.secondLowest = currentValue;
+        }
+        
+        return counterValue;
+    },{ // the 4 lines below are the counterValue
+        highest: -Infinity,
+        secondHighest: - Infinity, 
+        lowest: +Infinity,
+        secondLowest: +Infinity
+    })
 }
-    
+//console.log(highLowTwo([1, -2, -10, 20, 40, 5]));
+
+
+// 8) Write a function called countChars that takes a string, 
+// and returns an object where the keys are letters, and the 
+// value is the number of times that letter appears.
+// For example, with input "hello world", the output should be:
+// {
+//   "h": 1,
+//   "e": 1,
+//   "l": 3,
+//   "o": 2,
+//   "w": 1,
+//   "r": 1,
+//   "d": 1
+// }
+// NOTE: Unlike arrays, objects don’t have any ordering on them.
+// When you print your object on the console, your keys may be 
+// displayed in a different order, and it does not matter.
+function countChars(str) {
+    var splitStr = str.toLowerCase().split("");
+    return splitStr.reduce(function repeatedltr(a,b) {
+        if (a = b) {
+            count = count + 1;
+        }
+    },0)
+}
+
