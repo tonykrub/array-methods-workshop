@@ -187,7 +187,181 @@ For example, with input "hello world", the output should be:
 NOTE: Unlike arrays, objects don’t have any ordering on them. When you print your object on the 
 console, your keys may be displayed in a different order, and it does not matter.
 */
-function countChars (string) {
-    return 
+function countChars(str) {
+    var splitStr = str.toLowerCase().replace(" ","").split(""); // also have to replace the space between words. that is why we use 'replace' here.
+    return splitStr.reduce(function repeatedLetter(a,b) { // 'a' is like 'counter' and 'b' is like each item in the array that we are checking.
+        if (!a[b]) {  // Here we check if that letter already exists, because we don't know yet if that letter exists already or not. This means if there is no 'b', then count 1 because it does not yet exist
+            a[b] = 1; // we use [] to make it 'dynamic' because if we use 'dot' like in previous exercises (a.b instead of a[b]), it will mean 'b' is the property of that object 'a'. But here 'a' does not have any property. So we cannot use dot here.
+        }
+        else {
+            a[b] += 1; // this means if 'b' already exists, then count 1 more.
+        }
+        return a;
+    },{})
 }
+//console.log(countChars("HeLlo World"));
+
+
+/* 9) Starting on week 3 of the bootcamp, we will be learning 
+about databases. Databases are useful for saving data for 
+long periods of time.
+Contrary to a JavaScript program, where all the data 
+disappears when the program terminates, databases keep their 
+data "forever".
+In this exercise, we’re going to imagine that we are storing 
+people information in a database, and that we queried our 
+database to retrieve a list of people.
+Our database returns to us an array of people objects, and 
+each of them has a unique ID that the database uses to refer 
+to it.
+Here’s what our person data could look like:
+[
+  {
+    "id": "KeXoYg92is",
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john@smith.com"
+  },
+  {
+    "id": "NkALmSWtUp",
+    "firstName": "Donald",
+    "lastName": "Duck",
+    "email": "don@disney.com"
+  },
+  {
+    "id": "m7LPbJYSUg",
+    "firstName": "John",
+    "lastName": "Vader",
+    "email": "vader@darkside.com"
+  }
+]
+For this exercise, we want to use Array.prototype.reduce to 
+transform our array of people into an object, keyed with the 
+unique ID.The end result should look like this:
+{
+  "KeXoYg92is": {
+    "id": "KeXoYg92is",
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john@smith.com"
+  },
+  "NkALmSWtUp": {
+    "id": "NkALmSWtUp",
+    "firstName": "Donald",
+    "lastName": "Duck",
+    "email": "don@disney.com"
+  },
+  "m7LPbJYSUg": {
+    "id": "m7LPbJYSUg",
+    "firstName": "John",
+    "lastName": "Vader",
+    "email": "vader@darkside.com"
+  }
+}
+This object could be useful if we are often looking up people 
+by their unique ID.
+Write a function called peopleById that takes an array of 
+people and returns an object where each person is keyed by 
+their unique ID.
+You have effectively created what we call an index, not unlike 
+the one you have in your phonebook.*/
+function peopleById (arr) {
+    return arr.reduce(function sortedByID(a,b) {
+        a[b.id] = b;  // it is like we search for 'b' by ID and put that equals to the whole 'b' in order to display all properties of the object.
+        return a;
+    },{})
+}
+
+var arr = [
+  {
+    "id": "KeXoYg92is",
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john@smith.com"
+  },
+  {
+    "id": "NkALmSWtUp",
+    "firstName": "Donald",
+    "lastName": "Duck",
+    "email": "don@disney.com"
+  },
+  {
+    "id": "m7LPbJYSUg",
+    "firstName": "John",
+    "lastName": "Vader",
+    "email": "vader@darkside.com"
+  }
+]
+//console.log(peopleById (arr));
+
+
+/* 10) Expanding on the previous exercise, this time we are 
+going to create an index on first names. Notice how in the 
+previous exercise, each ID was unique. In this case, two 
+people have the same first name.
+We want to create a function called peopleByFirstName that 
+will take an array of people and return something that looks 
+like this:
+{
+  "John": [
+    {
+      "id": "KeXoYg92is",
+      "firstName": "John",
+      "lastName": "Smith",
+      "email": "john@smith.com"
+    },
+    {
+      "id": "m7LPbJYSUg",
+      "firstName": "John",
+      "lastName": "Vader",
+      "email": "vader@darkside.com"
+    }
+  ],
+  "Donald": [
+    {
+      "id": "NkALmSWtUp",
+      "firstName": "Donald",
+      "lastName": "Duck",
+      "email": "don@disney.com"
+    }
+  ]
+}
+You have effectively created an index on first name. This lets 
+you find all people called, say, “John” without having to look
+through the whole results. */
+
+function peopleByFirstName(arr) {
+    return arr.reduce(function sortedPeople(a,b) {
+        if (!a[b.firstName]) {
+            a[b.firstName] = []; // because we want the result to be 'firstName' equals an array. That is why we set a[b.firstName] equal an array. And we cannot use dot (a.b.firstName) here. And it has to be a[b.firstName], not just b.firstName because at the end we return a to get the value of a.
+            a[b.firstName].push(b);
+        }
+        else {
+            a[b.firstName].push(b);
+        }
+        return a;
+    },{})
+}
+
+var arr = [
+  {
+    "id": "KeXoYg92is",
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john@smith.com"
+  },
+  {
+    "id": "NkALmSWtUp",
+    "firstName": "Donald",
+    "lastName": "Duck",
+    "email": "don@disney.com"
+  },
+  {
+    "id": "m7LPbJYSUg",
+    "firstName": "John",
+    "lastName": "Vader",
+    "email": "vader@darkside.com"
+  }
+]
+//console.log(peopleByFirstName(arr));
     
