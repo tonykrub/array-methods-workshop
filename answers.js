@@ -202,7 +202,8 @@ function countChars(str) {
 //console.log(countChars("HeLlo World"));
 
 
-/* 9) Starting on week 3 of the bootcamp, we will be learning 
+/* Exercise 9
+Starting on week 3 of the bootcamp, we will be learning 
 about databases. Databases are useful for saving data for 
 long periods of time.
 Contrary to a JavaScript program, where all the data 
@@ -295,7 +296,8 @@ var arr = [
 //console.log(peopleById (arr));
 
 
-/* 10) Expanding on the previous exercise, this time we are 
+/* Exercise 10
+Expanding on the previous exercise, this time we are 
 going to create an index on first names. Notice how in the 
 previous exercise, each ID was unique. In this case, two 
 people have the same first name.
